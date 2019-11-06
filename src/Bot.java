@@ -44,8 +44,14 @@ public class Bot extends TelegramLongPollingBot {
         }
         else if (text.contains("/delete")) {
             String note = text.replace("/delete ", "");
-            Notes.deleteNote(note);
-            return "The note has been deleted!";
+            try {
+                Notes.deleteNote(note);
+                return "The note has been deleted!";
+            } catch (IndexOutOfBoundsException e) {
+                return "The list of notes doesn't consist such note number";
+            }
+
+
         }
         return "Don't understand";
     }

@@ -2,17 +2,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Notes {
-    private static List<String> notesList = new ArrayList<String>();
+    private static List<String> notesList = new ArrayList<>();
 
     static String getNotes() {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         if (!notesList.isEmpty()) {
             int i = 1;
             for (String note: notesList) {
-                text += String.format("%s%n", note);
+                text.append(String.format("%d. %s%n", i, note));
                 i++;
             }
-            return text;
+            return text.toString();
         }
         else { return "There is no notes in the list"; }
     }
@@ -22,6 +22,9 @@ class Notes {
     }
 
     static void deleteNote(String text) {
-        notesList.remove(text);
+        if (!notesList.isEmpty()) {
+            int position = Integer.parseInt(text);
+            notesList.remove(position - 1);
+        }
     }
 }
